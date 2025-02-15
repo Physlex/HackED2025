@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Python build system
+*.egg-info
+venv
+__pycache__
+db.sqlite3
+static
+build
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,0 +1,15 @@
+{% load static_vite_js %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Controller Diagnostics</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <!-- Entry point for cache-busted module -->
+        <script type="module" src="{% static_vite_js %}"></script>
+    </body>
+</html>

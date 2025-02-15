@@ -3,7 +3,7 @@ requires = ["setuptools >= 61.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hackend2025"
+name = "hacked2025"
 version = "0.1.0"
 dynamic = ["dependencies"]
 

@@ -12,6 +12,7 @@ export default function Page1() {
     return (
         <div className="Page1">
             <nav>
+            <Link to="/">Home </Link>
             <Link to="/Page2">Page2</Link>   
                 
             </nav>

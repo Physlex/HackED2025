@@ -10,9 +10,9 @@ import {
     createBrowserRouter,
     createRoutesFromElements
 } from 'react-router-dom';
-
-import { Page1 } from './pages';
-import { Page2 } from './pages/';
+import  Home  from './pages/Home';
+import  Page1  from './pages/Page1';
+import Page2 from './pages/Page2';
 
 /**
  * Layout for the application.
@@ -28,8 +28,9 @@ export default function Layout(): JSX.Element {
 // Browser router to be used in the application
 export const layoutRouter = createBrowserRouter(createRoutesFromElements(
     <Route element={<Layout />} >
-        <Route path="/" element={<Page1 />} />
-        <Route path="/" element={<Page2 />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/page1" element={<Page1 />} />
+        <Route path="/page2" element={<Page2 />} />
     </Route>
 ),
 {

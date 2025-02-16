@@ -4,7 +4,9 @@ import * as React from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
-import { JSX } from "react";
+import { useRef, useEffect, useState,JSX } from "react";
+
+
 
 
 export function BasicMenu() {
@@ -231,6 +233,7 @@ export default function Page2() {
     const [polarTranslation, setPolarTranslation] = useState<[number, number]>([0.0, 0.0]);
 
     return (
+        <div>
             <CircleCanvas
                 canvasWidth={800}
                 canvasHeight={800}
@@ -324,6 +327,7 @@ export default function Page2() {
                     }}
                 />
             </div>
-        </div>
+
     );
-}
+    </div>
+)};

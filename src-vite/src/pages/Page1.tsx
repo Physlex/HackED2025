@@ -1,6 +1,16 @@
+
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
 import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+
+function ButtonUsage() {
+    const click = () => {
+        alert("Page 1");
+    }
+    return <Button onClick={click}>Hello </Button>;
+}
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
@@ -13,6 +23,7 @@ const options = {
         y: {
             min: -1.2,
             max: 1.2
+
         }
     },
     animation: {
@@ -30,7 +41,6 @@ type ChartData = {
 };
 
 export default function Page1() {
-
     const [timestamp, setTimestamp] = useState<number>(0);
     const [y, setY] = useState<number>(0);
 
@@ -70,11 +80,13 @@ export default function Page1() {
             const newData1 = [...prevData.datasets[0].data, y];
             const newData2 = [...prevData.datasets[1].data, y];
 
+
             if (newLabels.length >= 100) {
                 newLabels.shift();
                 newData1.shift();
                 newData2.shift();
             } 
+
 
             return {
                 ...prevData,
@@ -95,7 +107,17 @@ export default function Page1() {
 
     return (
         <div>
+
+            <nav>
+                <Link to="/">Home </Link>
+                <Link to="/Page2">Page2</Link>
+            </nav>
+            <ButtonUsage />
+
+
             <Line data={chartData} options={options} />
         </div>
     );
 }
+
+

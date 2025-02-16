@@ -2,8 +2,15 @@
 
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+
+   
+
 function ButtonUsage() {
-  return <Button variant="contained">Hello world</Button>;
+    const click = () => {
+        alert("Page 1");
+      }
+  return <Button onClick={click}>Hello </Button>;
+  
 }
 
 
@@ -18,8 +25,8 @@ export default function Page1() {
             </nav>
             
             <h1>
-            Welcome to our awesome website and cool data tracker </h1>
-
+          Page 1 </h1>
+            
             <ButtonUsage />
             
         </div>

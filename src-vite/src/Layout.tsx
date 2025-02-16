@@ -2,6 +2,7 @@
  * This module defines the layout for the rest of the application.
  */
 
+
 import { JSX } from 'react';
 
 import {

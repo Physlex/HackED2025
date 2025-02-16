@@ -21,9 +21,8 @@ const options = {
     },
     scales: {
         y: {
-            min: -1.2,
+            min: -0.2,
             max: 1.2
-
         }
     },
     animation: {

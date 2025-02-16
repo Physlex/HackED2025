@@ -9,7 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 // Import Pages
 import Home from "./pages/Home";
-import ConstantRunningGraphOverTime from "./pages/ConstantRunningGraphOverTime";
+import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
 
 // Import Navbar Component
@@ -39,7 +39,7 @@ export const layoutRouter = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/ConstantRunningGraphOverTime" element={<ConstantRunningGraphOverTime />} />
+            <Route path="/page1" element={<Page1 />} />
             <Route path="/page2" element={<Page2 />} />
         </Route>
     ),

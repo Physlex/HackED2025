@@ -36,7 +36,7 @@ export function BasicMenu() {
                 }}
             >
                 <MenuItem onClick={handleClose}><Link to="/"> Home</Link></MenuItem>
-                <MenuItem onClick={handleClose}> <Link to="/ConstantRunningGraphOverTime">Cool Graph </Link> </MenuItem>
+                <MenuItem onClick={handleClose}> <Link to="/page1">Cool Graph </Link> </MenuItem>
             </Menu>
 
         </div>

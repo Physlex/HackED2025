@@ -83,7 +83,7 @@ type ChartData = {
     }[]
 };
 
-export default function ConstantRunningGraphOverTime() {
+export default function Page1() {
     const [timestamp, setTimestamp] = useState<number>(0);
     const [y, setY] = useState<number>(0);
 

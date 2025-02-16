@@ -28,7 +28,7 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
     // Define navigation links
     const navItems = [
         { label: "Home", path: "/", icon: <Home /> },
-        { label: "Page 1", path: "/ConstantRunningGraphOverTime", icon: <BarChart /> },
+        { label: "Page 1", path: "/Page1", icon: <BarChart /> },
         { label: "Page 2", path: "/page2", icon: <Info /> },
     ];
 

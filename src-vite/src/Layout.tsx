@@ -2,44 +2,54 @@
  * This module defines the layout for the rest of the application.
  */
 
+import { JSX, useState } from "react";
+import { Route, Outlet, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-import { JSX } from 'react';
+// Import Pages
+import Home from "./pages/Home";
+import ConstantRunningGraphOverTime from "./pages/ConstantRunningGraphOverTime";
+import Page2 from "./pages/Page2";
 
-import {
-    Route,
-    Outlet,
-    createBrowserRouter,
-    createRoutesFromElements
-} from 'react-router-dom';
-import  Home  from './pages/Home';
-import  ConstantRunningGraphOverTime  from './pages/ConstantRunningGraphOverTime';
-import Page2 from './pages/Page2';
+// Import Navbar Component
+import Navbar from "./components/Navbar";
+
+// Import Custom Themes
+import { lightTheme, darkTheme } from "./theme/theme";
 
 /**
  * Layout for the application.
  */
 export default function Layout(): JSX.Element {
+    const [darkMode, setDarkMode] = useState(false);
+    const theme = darkMode ? darkTheme : lightTheme;
+
     return (
-        <div id="app">
-            <Outlet />
-        </div>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Navbar toggleTheme={() => setDarkMode(!darkMode)} darkMode={darkMode} />
+            <Outlet /> {/* Renders the current page */}
+        </ThemeProvider>
     );
 }
 
-// Browser router to be used in the application
-export const layoutRouter = createBrowserRouter(createRoutesFromElements(
-    <Route element={<Layout />} >
-        <Route path="/" element={<Home />} />
-        <Route path="/ConstantRunningGraphOverTime" element={<ConstantRunningGraphOverTime />} />
-        <Route path="/page2" element={<Page2 />} />
-    </Route>
-),
-{
-    future: {
-        v7_fetcherPersist: true,
-        v7_normalizeFormMethod: true,
-        v7_partialHydration: true,
-        v7_relativeSplatPath: true,
-        v7_skipActionErrorRevalidation: true,
-    },
-});
+// Define Application Routes
+export const layoutRouter = createBrowserRouter(
+    createRoutesFromElements(
+        <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/ConstantRunningGraphOverTime" element={<ConstantRunningGraphOverTime />} />
+            <Route path="/page2" element={<Page2 />} />
+        </Route>
+    ),
+    {
+        future: {
+            v7_fetcherPersist: true,
+            v7_normalizeFormMethod: true,
+            v7_partialHydration: true,
+            v7_relativeSplatPath: true,
+            v7_skipActionErrorRevalidation: true,
+        },
+    }
+);

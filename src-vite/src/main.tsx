@@ -7,7 +7,7 @@ import { layoutRouter } from './Layout.tsx';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-
+/*
 const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -17,12 +17,24 @@ const darkTheme = createTheme({
       
     },
 });
+
+*/
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary:{
+      main: '#5252ff'
+    }
+    
+  },
+});
   
 
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
             <CssBaseline />
         <RouterProvider router={layoutRouter} />
         </ThemeProvider>

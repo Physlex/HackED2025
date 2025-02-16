@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 
 import { Page1 } from './pages';
+import { Page2 } from './pages/';
 
 /**
  * Layout for the application.
@@ -28,6 +29,7 @@ export default function Layout(): JSX.Element {
 export const layoutRouter = createBrowserRouter(createRoutesFromElements(
     <Route element={<Layout />} >
         <Route path="/" element={<Page1 />} />
+        <Route path="/" element={<Page2 />} />
     </Route>
 ),
 {

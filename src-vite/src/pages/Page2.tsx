@@ -1,6 +1,52 @@
-import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+
+import { Link } from "react-router-dom"
+import * as React from "react";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Button } from "@mui/material";
 import { JSX } from "react";
+
+
+export function BasicMenu() {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    return (
+        <div>
+            <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                area-haspopup="true"
+                area-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+            >
+                Dashboard
+            </Button>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                <MenuItem onClick={handleClose}><Link to="/"> Home</Link></MenuItem>
+                <MenuItem onClick={handleClose}> <Link to="/page1">Cool Graph </Link> </MenuItem>
+            </Menu>
+
+        </div>
+    );
+}
+
+
+
 
 const vertexSource = `
     attribute vec4 a_position;
@@ -175,6 +221,7 @@ function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius
     return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />;
 }
 
+
 export default function Page2() {
     const [outlineRadius, setOutlineRadius] = useState(0.9);
     const [joystickRadius, setJoystickRadius] = useState(0.1);
@@ -184,11 +231,6 @@ export default function Page2() {
     const [polarTranslation, setPolarTranslation] = useState<[number, number]>([0.0, 0.0]);
 
     return (
-        <div>
-            <nav>
-                <Link to="/">Home </Link>
-                <Link to="/Page1">Page1</Link>
-            </nav>
             <CircleCanvas
                 canvasWidth={800}
                 canvasHeight={800}

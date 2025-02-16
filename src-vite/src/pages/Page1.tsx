@@ -31,7 +31,8 @@ type ChartData = {
 
 export default function Page1() {
 
-    const [second, setSecond] = useState<number>(0);
+    const [timestamp, setTimestamp] = useState<number>(0);
+    const [y, setY] = useState<number>(0);
 
     const [chartData, setChartData] = useState<ChartData>({
         labels: [],
@@ -48,13 +49,26 @@ export default function Page1() {
             },
         ]
     });
+    
+    // Update data on message
+    useEffect(() => {
+        const socket = new WebSocket("ws://localhost:8765");
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            setTimestamp(data.timestamp);
+            setY(data.value);
+        };
+
+        return () => socket.close();
+    }, []);
 
     // Update data
-    const updateData = () => {
+    useEffect(() => {
         setChartData((prevData) => {
-            const newLabels = [...prevData.labels, second];
-            const newData1 = [...prevData.datasets[0].data, Math.random()*2 - 1];
-            const newData2 = [...prevData.datasets[1].data, Math.random()*2 - 1];
+            const newLabels = [...prevData.labels, timestamp];
+            const newData1 = [...prevData.datasets[0].data, y];
+            const newData2 = [...prevData.datasets[1].data, y];
 
             if (newLabels.length >= 100) {
                 newLabels.shift();
@@ -77,17 +91,7 @@ export default function Page1() {
                 ]
             };
         });
-
-        setSecond((prev) => prev + 1);
-    };
-    
-    useEffect(() => {
-        const interval = setInterval(() => {
-            updateData();
-        }, 10);
-
-        return () => clearInterval(interval);
-    }, [second]);
+    }, [timestamp]);
 
     return (
         <div>

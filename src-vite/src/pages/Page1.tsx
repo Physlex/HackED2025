@@ -79,13 +79,11 @@ export default function Page1() {
             const newData1 = [...prevData.datasets[0].data, y];
             const newData2 = [...prevData.datasets[1].data, y];
 
-
             if (newLabels.length >= 100) {
                 newLabels.shift();
                 newData1.shift();
                 newData2.shift();
             } 
-
 
             return {
                 ...prevData,
@@ -118,5 +116,3 @@ export default function Page1() {
         </div>
     );
 }
-
-

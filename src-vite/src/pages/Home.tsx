@@ -1,9 +1,6 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-
-
 import { motion } from "framer-motion";
-
 
 function ButtonUsage() {
     const click = () => {
@@ -11,8 +8,8 @@ function ButtonUsage() {
     };
     return (
         <Button 
-            onClick={click} 
-            variant="contained" 
+            onClick={click}
+            variant="contained"
             color="primary"
             sx={{ marginTop: "20px" }}
         >
@@ -25,7 +22,6 @@ export default function Home() {
     return (
         <div className="Home bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex flex-col items-center text-white p-8">
 
-            
             {/* Navbar */}
             <motion.nav 
                 className="bg-gray-900 p-4 rounded-xl shadow-lg flex justify-center gap-6 w-full max-w-lg"

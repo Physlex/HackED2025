@@ -20,6 +20,12 @@ class Controller(object):
         """
         pass
 
+    def deserialize(self):
+        """
+        TODO: Deserialize ps controller state
+        """
+        return {}
+
     def close(self):
         """
         Close the connection to the controller

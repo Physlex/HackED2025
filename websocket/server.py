@@ -1,14 +1,25 @@
 import asyncio
-import websockets
 import json
 import random
-import time
+
+import websockets as ws
+
+from core.controller.controller import Controller
+
+HOST_NAME = "localhost"
+PORT = 8765
+
+def cross_pressed(state):
+    print(state)
 
 
 async def send_random_data(websocket):
-    counter = 0
+    controller = Controller()
+    controller.connect()
 
-    while True:
+    counter = 0
+    while not controller.ds_api.state.cross:
+        controller.ds_api.cross_pressed += cross_pressed
 
         data = {
             "timestamp": counter,
@@ -33,12 +44,18 @@ async def send_random_data(websocket):
         counter += 1
 
         await websocket.send(json.dumps(data))
-        await asyncio.sleep(0.8)
+        await asyncio.sleep(0.01)
+
+    controller.close()
 
 
 async def main():
-    server = await websockets.serve(send_random_data, "localhost", 8765)
+    print(f"Connecting to websocket client hosted on {HOST_NAME} of {PORT}")
+
+    server = await ws.serve(send_random_data, HOST_NAME, PORT)
     await server.wait_closed()
+
+    print(f"Terminating server")
 
 
 if __name__ == "__main__":

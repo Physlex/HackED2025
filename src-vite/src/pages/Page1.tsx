@@ -8,6 +8,8 @@ import * as React from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+const HOST_NAME = "localhost"
+const PORT = 8765
 
 
 export function BasicMenu() {
@@ -85,7 +87,7 @@ type ChartData = {
 
 export default function Page1() {
     const [timestamp, setTimestamp] = useState<number>(0);
-    const [_y, _setY] = useState<number>(0); // unnecessary?
+    // const [_y, _setY] = useState<number>(0); // unnecessary?
     const [button_circle, set_button_circle] = useState<number>(0);
     const [button_triangle, set_button_triangle] = useState<number>(0);
     const [button_cross, set_button_cross] = useState<number>(0);
@@ -167,11 +169,12 @@ export default function Page1() {
     
     // Connect to websocket
     useEffect(() => {
-        const socket = new WebSocket("ws://localhost:8765");
+        const socket = new WebSocket(`ws://${HOST_NAME}:${PORT}`);
 
         // Update timestamp and y when a value is received from socket
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
+
             setTimestamp(data.timestamp);
             // setY(data.value);
             set_button_triangle(data.button_triangle);
@@ -290,11 +293,8 @@ export default function Page1() {
 
     return (
         <div>
-
             <BasicMenu />   
             <ButtonUsage />
-
-
             <Line data={chartData} options={options} />
         </div>
     );

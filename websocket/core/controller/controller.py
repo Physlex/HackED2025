@@ -39,6 +39,9 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
+        self.button_L3_pressed = False
+        self.button_R3_pressed = False
+
 class Controller(object):
     def __init__(self):
         self.ds_api = pydualsense()
@@ -59,7 +62,7 @@ class Controller(object):
         for attr, value in self.state.__dict__.items():
             ret[attr] = value
         ret["battery_level"] = self.ds_api.battery.Level
-        ret["bettery_state"] = self.ds_api.battery.State
+        ret["battery_state"] = self.ds_api.battery.State
         print(ret)
         return ret
 
@@ -122,6 +125,12 @@ class Controller(object):
         self.state.yaw = yaw
         self.state.roll = roll
 
+    def r3_click_event(self, state):
+        self.state.button_R3_pressed = state
+
+    def l3_click_event(self, state):
+        self.state.button_L3_pressed = state
+
     def registerCallbacks(self):
         """
         Register each callback defined from above. Note that '+=' is a weird pydualsense
@@ -150,6 +159,8 @@ class Controller(object):
         self.ds_api.right_joystick_changed += self.right_joystick_event
 
         self.ds_api.gyro_changed += self.rot_event
+        self.ds_api.l3_changed += self.l3_click_event
+        self.ds_api.r3_changed += self.r3_click_event
 
         # Et cetera ........
         # do the rest here

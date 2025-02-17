@@ -50,7 +50,7 @@ class Controller(object):
 
     def serialize(self):
         """
-        TODO: serialize ps controller state
+        Serialize ps controller state.
         """
 
         ret = {}
@@ -69,8 +69,6 @@ class Controller(object):
         print("Terminating connection to the ps5 controller")
         self.ds_api.close()
 
-
-
     # ================= Callback function spam down here ======================
 
     def triangle_event(self, state):
@@ -84,11 +82,6 @@ class Controller(object):
     
     def square_event(self, state):
         self.state.button_square_pressed = state
-
-
-
-    
-
 
     def registerCallbacks(self):
         self.ds_api.cross_pressed += self.cross_event # function pointer

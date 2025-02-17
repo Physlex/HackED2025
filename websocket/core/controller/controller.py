@@ -51,14 +51,6 @@ class Controller(object):
         print("Establishing connection to dualsense controller...")
         self.ds_api.init()
 
-    # def update(self):
-    #     """
-    #     TODO: Update step in main application loop
-    #     """
-    #     pass
-    #     if self.ds_api.state.cross: # does this accurately tell if the button is pressed?
-    #         self.state.cross_state_pressed = True
-
     def serialize(self):
         """
         TODO: serialize ps controller state
@@ -78,7 +70,7 @@ class Controller(object):
         print("Terminating connection to the ps5 controller")
         self.ds_api.close()
 
-    # ================= Callback function spam down here ======================
+### CALLBACK FUNCTIONS ###################################################################
 
     def triangle_event(self, state):
         self.state.button_triangle_pressed = state
@@ -117,12 +109,10 @@ class Controller(object):
         self.state.right_dpad_pressed = state
 
     def left_joystick_event(self, stateX, stateY):
-        # print(stateX, stateY)
         self.state.joystick_left_x = stateX
         self.state.joystick_left_y = stateY
 
     def right_joystick_event(self, stateX, stateY):
-        # print(stateX, stateY)
         self.state.joystick_right_x = stateX
         self.state.joystick_right_y = stateY
 
@@ -132,10 +122,16 @@ class Controller(object):
         self.state.roll = roll
 
     def registerCallbacks(self):
-        self.ds_api.cross_pressed += self.cross_event  # function pointer
+        """
+        Register each callback defined from above. Note that '+=' is a weird pydualsense
+        operator overload, which acts as a pseudo-decorator.
+        """
+
+        self.ds_api.cross_pressed += self.cross_event
         self.ds_api.triangle_pressed += (
             self.triangle_event
-        )  # The += is operator overloading btw lol
+        )
+        
         self.ds_api.circle_pressed += self.circle_event
         self.ds_api.square_pressed += self.square_event
 

@@ -9,7 +9,7 @@ from core.controller.controller import Controller
 HOST_NAME = "localhost"
 PORT = 8765
 
-controller = Controller()  # singleton(?)
+controller = Controller()
 
 
 async def on_socket_connect(websocket):
@@ -40,6 +40,7 @@ async def on_socket_connect(websocket):
         #     "left_dpad": random.random() > 0.5,
         #     "right_dpad": random.random() > 0.5,
         # }
+
         data = controller.serialize()
         data["timestamp"] = counter
 

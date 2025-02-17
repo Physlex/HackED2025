@@ -39,7 +39,7 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
-        self.battery = 0
+        self.battery = 1
 
 
 class Controller(object):
@@ -61,6 +61,8 @@ class Controller(object):
         ret = {}
         for attr, value in self.state.__dict__.items():
             ret[attr] = value
+        ret["battery.Level"] = self.ds_api.battery.Level
+        ret["bettery.State"] = self.ds_api.battery.State
         print(ret)
         return ret
 
@@ -123,9 +125,6 @@ class Controller(object):
         self.state.yaw = yaw
         self.state.roll = roll
 
-    def bat_event(self, state):
-        self.state.battery = state
-
     def registerCallbacks(self):
         """
         Register each callback defined from above. Note that '+=' is a weird pydualsense
@@ -154,7 +153,6 @@ class Controller(object):
         self.ds_api.right_joystick_changed += self.right_joystick_event
 
         self.ds_api.gyro_changed += self.rot_event
-        self.ds_api.battery += self.bat_event
 
         # Et cetera ........
         # do the rest here

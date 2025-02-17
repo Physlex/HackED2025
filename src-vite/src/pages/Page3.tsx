@@ -100,7 +100,7 @@ export default function GameController() {
                     justifyContent="space-between"
                     width="100%"
                 >
-                    {["L2", "R2", "L1", "L2"].map((btn) => (
+                    {["L2", "R2", "L1", "R1"].map((btn) => (
                         <Grid item key={btn}>
                             <Box
                                 sx={{ ...buttonStyle, width: 80, height: 40, borderRadius: "8px" }}

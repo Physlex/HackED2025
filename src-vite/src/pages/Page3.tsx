@@ -20,22 +20,22 @@ const buttonStyle = {
 
 type Data = {
     "timestamp": boolean;
-    "button_triangle": boolean;
-    "button_circle": boolean;
-    "button_cross": boolean;
-    "button_square": boolean;
+    "button_triangle_pressed": boolean;
+    "button_circle_pressed": boolean;
+    "button_cross_pressed": boolean;
+    "button_square_pressed": boolean;
     "joystick_left_x": boolean;
     "joystick_left_y": boolean;
     "joystick_right_x": boolean;
     "joystick_right_y": boolean;
-    "trigger_L1": boolean;
-    "trigger_L2": boolean;
-    "trigger_R1": boolean;
-    "trigger_R2": boolean;
-    "up_dpad": boolean;
-    "down_dpad": boolean;
-    "left_dpad": boolean;
-    "right_dpad": boolean;
+    "trigger_L1_pressed": boolean;
+    "trigger_L2_pressed": boolean;
+    "trigger_R1_pressed": boolean;
+    "trigger_R2_pressed": boolean;
+    "up_dpad_pressed": boolean;
+    "down_dpad_pressed": boolean;
+    "left_dpad_pressed": boolean;
+    "right_dpad_pressed": boolean;
 }
 
 // Button overlay animation
@@ -43,7 +43,7 @@ const MotionOverlay = ({ active }: { active: boolean }) => (
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: active ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0 }}
         style={{
             position: "absolute",
             width: "100%",
@@ -59,7 +59,7 @@ export default function GameController() {
     const [pressed, setPressed] = useState({
         L2: false, L1: false, R2: false, R1: false,
         U: false, L: false, R: false, D: false,
-        triangle: false, "square": false, "O": false, "X": false,
+        "triangle": false, "square": false, "O": false, "X": false,
     });
 
     useEffect(() => {
@@ -68,18 +68,19 @@ export default function GameController() {
         socket.onmessage = (event) => {
             const data: Data = JSON.parse(event.data);
             
-            setPressed((prev) => ({ ...prev, "triangle": data.button_triangle  }));
-            setPressed((prev) => ({ ...prev, "square": data.button_square  }));
-            setPressed((prev) => ({ ...prev, "O": data.button_circle  }));
-            setPressed((prev) => ({ ...prev, "X": data.button_cross  }));
-            setPressed((prev) => ({ ...prev, "L2": data.trigger_L2  }));
-            setPressed((prev) => ({ ...prev, "L1": data.trigger_L1  }));
-            setPressed((prev) => ({ ...prev, "R2": data.trigger_R2  }));
-            setPressed((prev) => ({ ...prev, "R1": data.trigger_R1  }));
-            setPressed((prev) => ({ ...prev, "U": data.up_dpad  }));
-            setPressed((prev) => ({ ...prev, "L": data.left_dpad  }));
-            setPressed((prev) => ({ ...prev, "R": data.right_dpad  }));   
-            setPressed((prev) => ({ ...prev, "D": data.down_dpad  }));
+            // console.log(data);
+            setPressed((prev) => ({ ...prev, "triangle": data.button_triangle_pressed  }));
+            setPressed((prev) => ({ ...prev, "square": data.button_square_pressed  }));
+            setPressed((prev) => ({ ...prev, "O": data.button_circle_pressed  }));
+            setPressed((prev) => ({ ...prev, "X": data.button_cross_pressed  }));
+            setPressed((prev) => ({ ...prev, "L2": data.trigger_L2_pressed  }));
+            setPressed((prev) => ({ ...prev, "L1": data.trigger_L1_pressed  }));
+            setPressed((prev) => ({ ...prev, "R2": data.trigger_R2_pressed  }));
+            setPressed((prev) => ({ ...prev, "R1": data.trigger_R1_pressed  }));
+            setPressed((prev) => ({ ...prev, "U": data.up_dpad_pressed  }));
+            setPressed((prev) => ({ ...prev, "L": data.left_dpad_pressed  }));
+            setPressed((prev) => ({ ...prev, "R": data.right_dpad_pressed  }));   
+            setPressed((prev) => ({ ...prev, "D": data.down_dpad_pressed  }));
 
         };
     }, []);

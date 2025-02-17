@@ -1,42 +1,34 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode, useState } from "react";
+import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import { layoutRouter } from './Layout.tsx';
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { lightTheme, darkTheme } from "./theme/theme"; // Import the custom theme
+import { layoutRouter } from "./Layout";
+import { Brightness7, Brightness4 } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
-// Define a theme with global styles
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = darkMode ? darkTheme : lightTheme;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <IconButton
+        onClick={() => setDarkMode(!darkMode)}
+        color="inherit"
+        sx={{ position: "absolute", top: 10, right: 10 }}
+      >
+        {darkMode ? <Brightness7 /> : <Brightness4 />}
+      </IconButton>
+      <RouterProvider router={layoutRouter} />
+    </ThemeProvider>
+  );
+}
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-/*
-const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-      primary:{
-        main: '#ff5252'
-      }
-      
-    },
-});
-
-*/
-
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary:{
-      main: '#5252ff'
-    }
-    
-  },
-});
-  
-
-
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <ThemeProvider theme={lightTheme}>
-            <CssBaseline />
-        <RouterProvider router={layoutRouter} />
-        </ThemeProvider>
-    </StrictMode>,
-)
+// Render App with ThemeProvider
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

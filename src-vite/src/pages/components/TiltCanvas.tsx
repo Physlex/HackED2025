@@ -57,15 +57,7 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
-
-    const canvasRefCurrent = canvasRef.current;
-    return () => {
-      if (canvasRefCurrent) {
-        canvasRefCurrent.removeChild(renderer.domElement);
-      }
-      renderer.setAnimationLoop(null);
-    };
-  }, [pitch, yaw, roll]);
+  }, []);
 
   return <div ref={canvasRef} style={{ width: "100vw", height: "100vh" }} />;
 }

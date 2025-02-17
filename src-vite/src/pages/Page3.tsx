@@ -34,9 +34,9 @@ type ControllerState = {
   joystick_left_y: number;
   joystick_right_x: number;
   joystick_right_y: number;
-  gyro_pitch: number;
-  gyro_yaw: number;
-  gyro_roll: number;
+  pitch: number;
+  yaw: number;
+  roll: number;
   trigger_L1_pressed: boolean;
   trigger_L2_pressed: boolean;
   trigger_R1_pressed: boolean;
@@ -89,8 +89,11 @@ export default function GameController() {
 
   const [rotation, setRot] = useState({
     pitch: 0,
+    maxPitch: 1,
     yaw: 0,
+    maxYaw: 1,
     roll: 0,
+    maxRoll: 1
   });
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export default function GameController() {
       setJoystickRightX(data.joystick_right_x / 128);
       setJoystickRightY(-data.joystick_right_y / 128);
 
-      console.log(data);
+      // console.log(data);
 
       setPressed((prev) => ({
         ...prev,
@@ -126,9 +129,12 @@ export default function GameController() {
 
       setRot({
         ...rotation,
-        pitch: data.gyro_pitch,
-        yaw: data.gyro_yaw,
-        roll: data.gyro_roll,
+        pitch: data.pitch / rotation.maxPitch,
+        maxPitch: Math.max(rotation.maxPitch, data.pitch),
+        yaw: data.yaw / rotation.maxYaw,
+        maxYaw: Math.max(rotation.maxYaw, data.yaw),
+        roll: data.roll / rotation.maxRoll,
+        maxRoll: Math.max(rotation.maxRoll, data.roll)
       });
     };
   }, [rotation]);

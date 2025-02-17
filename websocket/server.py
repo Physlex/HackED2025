@@ -50,7 +50,7 @@ async def on_socket_connect(websocket):
         counter += 1
 
         await websocket.send(json.dumps(data))
-        await asyncio.sleep(0.01)
+        await asyncio.sleep(0.05)
 
     controller.close()
 

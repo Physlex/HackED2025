@@ -172,18 +172,18 @@ export default function Page1() {
 
             setTimestamp(data.timestamp);
             // setY(data.value);
-            set_button_triangle(data.button_triangle);
-            set_button_circle(data.button_circle);
-            set_button_cross(data.button_cross);
-            set_button_square(data.button_square);
+            set_button_triangle(data.button_triangle_pressed);
+            set_button_circle(data.button_circle_pressed);
+            set_button_cross(data.button_cross_pressed);
+            set_button_square(data.button_square_pressed);
             set_joystick_left_x(data.joystick_left_x);
             set_joystick_left_y(data.joystick_left_y);
             set_joystick_right_x(data.joystick_right_x);
             set_joystick_right_y(data.joystick_right_y);
-            set_trigger_L1(data.trigger_L1);
-            set_trigger_L2(data.trigger_L2);
-            set_trigger_R1(data.trigger_R1);
-            set_trigger_R2(data.trigger_R2);
+            set_trigger_L1(data.trigger_L1_pressed);
+            set_trigger_L2(data.trigger_L2_pressed);
+            set_trigger_R1(data.trigger_R1_pressed);
+            set_trigger_R2(data.trigger_R2_pressed);
         };
 
         return () => socket.close();

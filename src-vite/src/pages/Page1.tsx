@@ -161,7 +161,7 @@ export default function Page1() {
             }
         ]
     });
-    
+
     // Connect to websocket
     useEffect(() => {
         const socket = new WebSocket(`ws://${HOST_NAME}:${PORT}`);
@@ -222,7 +222,7 @@ export default function Page1() {
                 data_trigger_L2.shift();
                 data_trigger_R1.shift();
                 data_trigger_R2.shift();
-            } 
+            }
 
 
             return {

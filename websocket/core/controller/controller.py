@@ -1,7 +1,16 @@
 from pydualsense import pydualsense
 
+class SingletonMeta(type):
 
-class ControllerState:
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+    _instances = {}
+
+class ControllerState(SingletonMeta):
 
     def __init__(self):
         self.button_triangle_pressed = False
@@ -23,6 +32,10 @@ class ControllerState:
         self.joystick_left_y = 0
         self.joystick_right_x = 0
         self.joystick_right_y = 0
+
+        self.pitch = 0
+        self.yaw = 0
+        self.roll = 0
 
 
 class Controller(object):
@@ -51,7 +64,6 @@ class Controller(object):
 
         ret = {}
         for attr, value in self.state.__dict__.items():
-            # print(attr, value)
             ret[attr] = value
         print(ret)
         return ret
@@ -112,6 +124,11 @@ class Controller(object):
         self.state.joystick_right_x = stateX
         self.state.joystick_right_y = stateY
 
+    def rot_event(self, pitch, yaw, roll):
+        self.state.pitch = pitch
+        self.state.yaw = yaw
+        self.state.roll = roll
+
     def registerCallbacks(self):
         self.ds_api.cross_pressed += self.cross_event  # function pointer
         self.ds_api.triangle_pressed += (
@@ -132,6 +149,8 @@ class Controller(object):
 
         self.ds_api.left_joystick_changed += self.left_joystick_event
         self.ds_api.right_joystick_changed += self.right_joystick_event
+
+        self.ds_api.gyro_changed += self.rot_event
 
         # Et cetera ........
         # do the rest here

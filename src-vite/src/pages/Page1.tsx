@@ -302,135 +302,143 @@ export default function Page1() {
         ],
       };
     });
+  }, []);
 
-    // Connect to websocket
-    useEffect(() => {
-        const socket = new WebSocket(`ws://${HOST_NAME}:${PORT}`);
+  // Connect to websocket
+  useEffect(() => {
+    const socket = new WebSocket(`ws://${HOST_NAME}:${PORT}`);
 
-        // Update timestamp and y when a value is received from socket
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
+    // Update timestamp and y when a value is received from socket
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
 
-            setTimestamp(data.timestamp);
-            // setY(data.value);
-            set_button_triangle(data.button_triangle_pressed);
-            set_button_circle(data.button_circle_pressed);
-            set_button_cross(data.button_cross_pressed);
-            set_button_square(data.button_square_pressed);
-            set_joystick_left_x(data.joystick_left_x);
-            set_joystick_left_y(data.joystick_left_y);
-            set_joystick_right_x(data.joystick_right_x);
-            set_joystick_right_y(data.joystick_right_y);
-            set_trigger_L1(data.trigger_L1_pressed);
-            set_trigger_L2(data.trigger_L2_pressed);
-            set_trigger_R1(data.trigger_R1_pressed);
-            set_trigger_R2(data.trigger_R2_pressed);
-        };
+      setTimestamp(data.timestamp);
+      // setY(data.value);
+      set_button_triangle(data.button_triangle_pressed);
+      set_button_circle(data.button_circle_pressed);
+      set_button_cross(data.button_cross_pressed);
+      set_button_square(data.button_square_pressed);
+      set_joystick_left_x(data.joystick_left_x);
+      set_joystick_left_y(data.joystick_left_y);
+      set_joystick_right_x(data.joystick_right_x);
+      set_joystick_right_y(data.joystick_right_y);
+      set_trigger_L1(data.trigger_L1_pressed);
+      set_trigger_L2(data.trigger_L2_pressed);
+      set_trigger_R1(data.trigger_R1_pressed);
+      set_trigger_R2(data.trigger_R2_pressed);
+    };
 
-        return () => socket.close();
-    }, []);
+    return () => socket.close();
+  }, []);
 
+  // Update data
+  useEffect(() => {
+    setChartData((prevData) => {
+      const newLabels = [...prevData.labels, timestamp];
+      const data_button_triangle = [
+        ...prevData.datasets[0].data,
+        button_triangle,
+      ];
+      const data_button_circle = [...prevData.datasets[1].data, button_circle];
+      const data_button_cross = [...prevData.datasets[2].data, button_cross];
+      const data_button_square = [...prevData.datasets[3].data, button_square];
+      const data_joystick_left_x = [
+        ...prevData.datasets[4].data,
+        joystick_left_x,
+      ];
+      const data_joystick_left_y = [
+        ...prevData.datasets[5].data,
+        joystick_left_y,
+      ];
+      const data_joystick_right_x = [
+        ...prevData.datasets[6].data,
+        joystick_right_x,
+      ];
+      const data_joystick_right_y = [
+        ...prevData.datasets[7].data,
+        joystick_right_y,
+      ];
+      const data_trigger_L1 = [...prevData.datasets[8].data, trigger_L1];
+      const data_trigger_L2 = [...prevData.datasets[9].data, trigger_L2];
+      const data_trigger_R1 = [...prevData.datasets[10].data, trigger_R1];
+      const data_trigger_R2 = [...prevData.datasets[11].data, trigger_R2];
 
-    // Update data
-    useEffect(() => {
-        setChartData((prevData) => {
-            const newLabels = [...prevData.labels, timestamp];
-            const data_button_triangle = [...prevData.datasets[0].data, button_triangle];
-            const data_button_circle = [...prevData.datasets[1].data, button_circle];
-            const data_button_cross = [...prevData.datasets[2].data, button_cross];
-            const data_button_square = [...prevData.datasets[3].data, button_square];
-            const data_joystick_left_x = [...prevData.datasets[4].data, joystick_left_x];
-            const data_joystick_left_y = [...prevData.datasets[5].data, joystick_left_y];
-            const data_joystick_right_x = [...prevData.datasets[6].data, joystick_right_x];
-            const data_joystick_right_y = [...prevData.datasets[7].data, joystick_right_y];
-            const data_trigger_L1 = [...prevData.datasets[8].data, trigger_L1];
-            const data_trigger_L2 = [...prevData.datasets[9].data, trigger_L2];
-            const data_trigger_R1 = [...prevData.datasets[10].data, trigger_R1];
-            const data_trigger_R2 = [...prevData.datasets[11].data, trigger_R2];
+      if (newLabels.length >= 10) {
+        newLabels.shift();
+        data_button_triangle.shift();
+        data_button_circle.shift();
+        data_button_cross.shift();
+        data_button_square.shift();
+        data_joystick_left_x.shift();
+        data_joystick_left_y.shift();
+        data_joystick_right_x.shift();
+        data_joystick_right_y.shift();
+        data_trigger_L1.shift();
+        data_trigger_L2.shift();
+        data_trigger_R1.shift();
+        data_trigger_R2.shift();
+      }
 
+      return {
+        ...prevData,
+        labels: newLabels,
+        datasets: [
+          {
+            ...prevData.datasets[0],
+            data: data_button_triangle,
+          },
+          {
+            ...prevData.datasets[1],
+            data: data_button_circle,
+          },
+          {
+            ...prevData.datasets[2],
+            data: data_button_cross,
+          },
+          {
+            ...prevData.datasets[3],
+            data: data_button_square,
+          },
+          {
+            ...prevData.datasets[4],
+            data: data_joystick_left_x,
+          },
+          {
+            ...prevData.datasets[5],
+            data: data_joystick_left_y,
+          },
+          {
+            ...prevData.datasets[6],
+            data: data_joystick_right_x,
+          },
+          {
+            ...prevData.datasets[7],
+            data: data_joystick_right_y,
+          },
+          {
+            ...prevData.datasets[8],
+            data: data_trigger_L1,
+          },
+          {
+            ...prevData.datasets[9],
+            data: data_trigger_L2,
+          },
+          {
+            ...prevData.datasets[10],
+            data: data_trigger_R1,
+          },
+          {
+            ...prevData.datasets[11],
+            data: data_trigger_R2,
+          },
+        ],
+      };
+    });
+  }, [timestamp]);
 
-            if (newLabels.length >= 10) {
-                newLabels.shift();
-                data_button_triangle.shift();
-                data_button_circle.shift();
-                data_button_cross.shift();
-                data_button_square.shift();
-                data_joystick_left_x.shift();
-                data_joystick_left_y.shift();
-                data_joystick_right_x.shift();
-                data_joystick_right_y.shift();
-                data_trigger_L1.shift();
-                data_trigger_L2.shift();
-                data_trigger_R1.shift();
-                data_trigger_R2.shift();
-            }
-
-
-            return {
-                ...prevData,
-                labels: newLabels,
-                datasets: [
-                    {
-                        ...prevData.datasets[0],
-                        data: data_button_triangle
-                    },
-                    {
-                        ...prevData.datasets[1],
-                        data: data_button_circle
-                    },
-                    {
-                        ...prevData.datasets[2],
-                        data: data_button_cross
-                    },
-                    {
-                        ...prevData.datasets[3],
-                        data: data_button_square
-                    },
-                    {
-                        ...prevData.datasets[4],
-                        data: data_joystick_left_x
-                    },
-                    {
-                        ...prevData.datasets[5],
-                        data: data_joystick_left_y
-                    },
-                    {
-                        ...prevData.datasets[6],
-                        data: data_joystick_right_x
-                    },
-                    {
-                        ...prevData.datasets[7],
-                        data: data_joystick_right_y
-                    },
-                    {
-                        ...prevData.datasets[8],
-                        data: data_trigger_L1
-                    },
-                    {
-                        ...prevData.datasets[9],
-                        data: data_trigger_L2
-                    },
-                    {
-                        ...prevData.datasets[10],
-                        data: data_trigger_R1
-                    },
-                    {
-                        ...prevData.datasets[11],
-                        data: data_trigger_R2
-                    }
-                ]
-            };
-        });
-    }, [timestamp]);
-
-
-
-
-
-    return (
-        <div>
-
-
-            <Line data={chartData} options={options} />
-        </div>
-    );
+  return (
+    <div>
+      <Line data={chartData} options={options} />
+    </div>
+  );
+}

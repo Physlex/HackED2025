@@ -12,18 +12,23 @@ async def send_random_data(websocket):
 
         data = {
             "timestamp": counter,
-            "button_triangle": 1 if random.random() > 0.5 else 0,
-            "button_circle": 1.01 if random.random() > 0.5 else -0.01,
-            "button_cross": 1.02 if random.random() > 0.5 else -0.02,
-            "button_square": 1.03 if random.random() > 0.5 else -0.03,
-            "joystick_left_x": 1.04 if random.random() > 0.5 else -0.04,
-            "joystick_left_y": 1.05 if random.random() > 0.5 else -0.05,
-            "joystick_right_x": 1.06 if random.random() > 0.5 else -0.06,
-            "joystick_right_y": 1.07 if random.random() > 0.5 else -0.07,
-            "trigger_L1": 1.08 if random.random() > 0.5 else -0.08,
-            "trigger_L2": 1.09 if random.random() > 0.5 else -0.09,
-            "trigger_R1": 1.10 if random.random() > 0.5 else -0.10,
-            "trigger_R2": 1.11 if random.random() > 0.5 else -0.11,
+            "button_triangle": random.random() > 0.50,
+            "button_circle": random.random() > 0.5,
+            "button_cross": random.random() > 0.5,
+            "button_square": random.random() > 0.5,
+            "joystick_left_x": random.random() > 0.5,
+            "joystick_left_y": random.random() > 0.5,
+            "joystick_right_x": random.random() > 0.5,
+            "joystick_right_y": random.random() > 0.5,
+            "trigger_L1": random.random() > 0.5,
+            "trigger_L2": random.random() > 0.5,
+            "trigger_R1": random.random() > 0.5,
+            "trigger_R2": random.random() > 0.5,
+            "up_dpad": random.random() > 0.5,
+            "down_dpad": random.random() > 0.5,
+            "left_dpad": random.random() > 0.5,
+            "right_dpad": random.random() > 0.5,
+            
         }
 
         counter += 1

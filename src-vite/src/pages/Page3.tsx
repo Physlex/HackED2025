@@ -116,8 +116,6 @@ export default function GameController() {
       // Battery
       setBatteryPercentage(data.battery_level);
 
-      // console.log(data);
-
       setPressed((prev) => ({
         ...prev,
         triangle: data.button_triangle_pressed,

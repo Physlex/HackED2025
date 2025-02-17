@@ -58,8 +58,8 @@ class Controller(object):
         ret = {}
         for attr, value in self.state.__dict__.items():
             ret[attr] = value
-        ret["battery.Level"] = self.ds_api.battery.Level
-        ret["bettery.State"] = self.ds_api.battery.State
+        ret["battery_level"] = self.ds_api.battery.Level
+        ret["bettery_state"] = self.ds_api.battery.State
         print(ret)
         return ret
 

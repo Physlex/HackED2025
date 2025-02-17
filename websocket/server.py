@@ -39,4 +39,5 @@ async def main():
     server = await websockets.serve(send_random_data, "localhost", 8765)
     await server.wait_closed()
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

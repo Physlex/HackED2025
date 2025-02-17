@@ -13,7 +13,7 @@ controller = Controller()  # singleton(?)
 
 
 async def on_socket_connect(websocket):
-    controller.connect() 
+    controller.connect()
     controller.registerCallbacks()
 
     counter = 0

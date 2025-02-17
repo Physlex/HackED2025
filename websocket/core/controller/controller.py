@@ -39,9 +39,6 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
-        self.battery = 1
-
-
 class Controller(object):
     def __init__(self):
         self.ds_api = pydualsense()

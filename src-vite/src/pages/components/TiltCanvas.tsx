@@ -39,11 +39,8 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
 
     // Create a Cube (for scale)
 
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({
-      color: "red",
-      wireframe: true,
-    });
+    const geometry = new THREE.BoxGeometry(1,1,1);
+    const material = new THREE.MeshBasicMaterial({color: "red"});
     const cube = new THREE.Mesh(geometry, material);
 
     // Create the scene object and append the cube

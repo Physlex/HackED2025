@@ -14,7 +14,10 @@ controller = Controller()
 
 async def on_socket_connect(websocket):
     controller.connect()
+    print("Registering controller callbacks")
     controller.registerCallbacks()
+
+    print("Beginning byte transmission")
 
     counter = 0
     while not controller.ds_api.state.ps:

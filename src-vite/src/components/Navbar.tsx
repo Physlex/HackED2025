@@ -12,6 +12,9 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
+
+
+
 import {
   Menu as MenuIcon,
   Brightness4,
@@ -21,6 +24,7 @@ import {
   SportsEsports,
   Engineering,
 } from "@mui/icons-material";
+
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
@@ -43,17 +47,15 @@ export default function Navbar({
     setMobileOpen(!mobileOpen);
   };
 
-  // Define navigation links
-  const navItems = [
-    { label: "Home", path: "/", icon: <Home /> },
-    {
-      label: "Real Time Time-Series Random Number Graph",
-      path: "/Page1",
-      icon: <BarChart />,
-    },
-    { label: "Shape Render 🔥", path: "/page2", icon: <Engineering /> },
-    { label: "Controller Map", path: "/page3", icon: <SportsEsports /> },
-  ];
+
+    // Define navigation links
+    const navItems = [
+        { label: "Home", path: "/", icon: <Home /> },
+        { label: "Real Time Time-Series Button Impulse Map", path: "/Page1", icon: <BarChart /> },
+        //{ label: "Shape Render 🔥", path: "/page2", icon: <Engineering /> },
+        { label: "Controller Map", path: "/page3", icon: <SportsEsports /> },
+    ];
+
 
   return (
     <>

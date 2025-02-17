@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom"
 import * as React from "react";
 import Menu from '@mui/material/Menu';
@@ -195,7 +194,7 @@ export function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystic
     const renderJoystick = (gl: WebGLRenderingContext) => {
         if (!gl) return;
 
-        gl.uniform2f(translationLocationRef.current, translation[0], translation[1]);
+        gl.uniform2f(translationLocationRef.current, translation[0] * outlineRadius, translation[1] * outlineRadius);
         gl.drawArrays(gl.TRIANGLE_FAN, 0, points);
     };
 
@@ -216,7 +215,6 @@ export function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystic
 
     return <canvas ref={canvasRef} width={canvasWidth} height={canvasHeight} />;
 }
-
 
 export default function Page2() {
     const [outlineRadius, setOutlineRadius] = useState(0.9);

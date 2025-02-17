@@ -87,18 +87,27 @@ export default function GameController() {
     return (
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
             {/* Trigger Buttons */}
-            <Grid container spacing={8} justifyContent="space-between" width={400}>
-                {["L2", "R2", "L1", "L2"].map((btn) => (
-                    <Grid item key={btn}>
-                        <Box
-                            sx={{ ...buttonStyle, width: 80, height: 40, borderRadius: "8px" }}
-                        >
-                            {btn}
-                            <MotionOverlay active={pressed[btn as keyof typeof pressed]} />
-                        </Box>
-                    </Grid>
-                ))}
-            </Grid>
+            <Box display="flex" justifyContent="center" width="80%">
+                <Grid
+                    container
+                    rowSpacing={1}
+                    columnSpacing="25%"
+                    justifyItems="center"
+                    justifyContent="space-between"
+                    width="100%"
+                >
+                    {["L2", "R2", "L1", "L2"].map((btn) => (
+                        <Grid item key={btn}>
+                            <Box
+                                sx={{ ...buttonStyle, width: 80, height: 40, borderRadius: "8px" }}
+                            >
+                                {btn}
+                                <MotionOverlay active={pressed[btn as keyof typeof pressed]} />
+                            </Box>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
 
             {/* Main Controller Layout */}
             <Grid container spacing={6} justifyContent="center" mt={4}>
@@ -138,7 +147,7 @@ export default function GameController() {
                         translation={[0.0, 0.0]}
                         points={50}
                         lineWidth={4}
-                    />
+                        />
                 </Grid>
 
                 <Grid item>
@@ -150,7 +159,7 @@ export default function GameController() {
                         translation={[0.0, 0.0]}
                         points={50}
                         lineWidth={4}
-                    />
+                        />
                 </Grid>
 
                 <Grid item>

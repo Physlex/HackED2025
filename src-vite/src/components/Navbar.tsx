@@ -9,6 +9,7 @@ import { useTheme } from "@mui/material/styles";
 import {motion} from 'framer-motion';
 
 
+
 /** 
  * Navigation Bar Component 
  */
@@ -30,6 +31,7 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
         { label: "Home", path: "/", icon: <Home /> },
         { label: "Page 1", path: "/Page1", icon: <BarChart /> },
         { label: "Page 2", path: "/page2", icon: <Info /> },
+        {label: "Page 3", path: "/page3", icon: <Info/>},
     ];
 
     return (

@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { Box, Grid } from "@mui/material"; // TODO: Transition to Grid2?
 import { motion } from "framer-motion";
 import { CircleCanvas } from "./Page2";
-import { TiltCanvas } from "./components";
 
 // Base styles
 const buttonStyle = {
@@ -93,7 +92,7 @@ export default function GameController() {
     yaw: 0,
     maxYaw: 1,
     roll: 0,
-    maxRoll: 1
+    maxRoll: 1,
   });
 
   useEffect(() => {
@@ -107,7 +106,7 @@ export default function GameController() {
       setJoystickRightX(data.joystick_right_x / 128);
       setJoystickRightY(-data.joystick_right_y / 128);
 
-      // console.log(data);
+      console.log(data);
 
       setPressed((prev) => ({
         ...prev,
@@ -129,12 +128,12 @@ export default function GameController() {
 
       setRot({
         ...rotation,
-        pitch: data.pitch / rotation.maxPitch,
+        pitch: data.pitch / 17180,
         maxPitch: Math.max(rotation.maxPitch, data.pitch),
-        yaw: data.yaw / rotation.maxYaw,
+        yaw: data.yaw / 17180,
         maxYaw: Math.max(rotation.maxYaw, data.yaw),
-        roll: data.roll / rotation.maxRoll,
-        maxRoll: Math.max(rotation.maxRoll, data.roll)
+        roll: data.roll / 17180,
+        maxRoll: Math.max(rotation.maxRoll, data.roll),
       });
     };
   }, [rotation]);
@@ -273,7 +272,7 @@ export default function GameController() {
       </div>
 
       {/* This renders the tilt information */}
-      <Box
+      {/* <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <TiltCanvas
@@ -281,7 +280,7 @@ export default function GameController() {
           yaw={rotation.yaw}
           roll={rotation.roll}
         />
-      </Box>
+      </Box> */}
     </>
   );
 }

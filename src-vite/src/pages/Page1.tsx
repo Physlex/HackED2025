@@ -164,13 +164,8 @@ export default function Page1() {
             }
         ]
     });
-
-
-    // Update data on message
-
     
     // Connect to websocket
-
     useEffect(() => {
         const socket = new WebSocket("ws://localhost:8765");
 
@@ -217,11 +212,6 @@ export default function Page1() {
 
             if (newLabels.length >= 10) {
                 newLabels.shift();
-
-                newData1.shift();
-                newData2.shift();
-            }
-
                 data_button_triangle.shift();
                 data_button_circle.shift();
                 data_button_cross.shift();
@@ -235,7 +225,6 @@ export default function Page1() {
                 data_trigger_R1.shift();
                 data_trigger_R2.shift();
             } 
-
 
 
             return {
@@ -302,7 +291,7 @@ export default function Page1() {
     return (
         <div>
 
-            <BasicMenu />
+            <BasicMenu />   
             <ButtonUsage />
 
 

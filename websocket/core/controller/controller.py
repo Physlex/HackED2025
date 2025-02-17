@@ -39,7 +39,6 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
-
 class Controller(object):
     def __init__(self):
         self.ds_api = pydualsense()
@@ -59,6 +58,8 @@ class Controller(object):
         ret = {}
         for attr, value in self.state.__dict__.items():
             ret[attr] = value
+        ret["battery.Level"] = self.ds_api.battery.Level
+        ret["bettery.State"] = self.ds_api.battery.State
         print(ret)
         return ret
 

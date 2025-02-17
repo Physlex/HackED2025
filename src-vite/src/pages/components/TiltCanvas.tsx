@@ -38,8 +38,8 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
 
     // Create a Cube (for scale)
 
-    const geometry = new THREE.BoxGeometry(1,1,1);
-    const material = new THREE.MeshBasicMaterial({color: "red"});
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: "red" });
     const cube = new THREE.Mesh(geometry, material);
 
     // Create the scene object and append the cube
@@ -52,12 +52,13 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
     console.log("cube being updated");
 
     function animate() {
-      console.warn(pitch, yaw, roll)
+      console.warn(pitch, yaw, roll);
+
       cube.rotation.set(pitch, yaw, roll);
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
-  }, []);
+  }, [pitch, yaw, roll]);
 
   return <div ref={canvasRef} style={{ width: "100vw", height: "100vh" }} />;
 }

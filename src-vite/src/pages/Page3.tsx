@@ -98,7 +98,7 @@ export default function GameController() {
     yaw: 0,
     maxYaw: 1,
     roll: 0,
-    maxRoll: 1
+    maxRoll: 1,
   });
 
   useEffect(() => {
@@ -138,12 +138,12 @@ export default function GameController() {
 
       setRot({
         ...rotation,
-        pitch: data.pitch / rotation.maxPitch,
+        pitch: data.pitch / 17180,
         maxPitch: Math.max(rotation.maxPitch, data.pitch),
-        yaw: data.yaw / rotation.maxYaw,
+        yaw: data.yaw / 17180,
         maxYaw: Math.max(rotation.maxYaw, data.yaw),
-        roll: data.roll / rotation.maxRoll,
-        maxRoll: Math.max(rotation.maxRoll, data.roll)
+        roll: data.roll / 17180,
+        maxRoll: Math.max(rotation.maxRoll, data.roll),
       });
     };
   }, [rotation]);

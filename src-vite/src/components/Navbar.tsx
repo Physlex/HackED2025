@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { 
     AppBar, Toolbar, IconButton, Typography, Box, 
     Button, Drawer, List, ListItem, ListItemButton, ListItemText 
@@ -6,20 +6,14 @@ import {
 import { Menu as MenuIcon, Brightness4, Brightness7, Home, BarChart, Info } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
-import {motion} from 'framer-motion';
-
-
+import { motion } from 'framer-motion';
 
 /** 
  * Navigation Bar Component 
  */
 export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => void; darkMode: boolean }) {
     const theme = useTheme();
-    //const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileOpen, setMobileOpen] = useState(false);
-
-    // Handle menu clicks
- 
 
     // Toggle mobile drawer
     const handleDrawerToggle = () => {
@@ -31,7 +25,7 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
         { label: "Home", path: "/", icon: <Home /> },
         { label: "Page 1", path: "/Page1", icon: <BarChart /> },
         { label: "Page 2", path: "/page2", icon: <Info /> },
-        {label: "Page 3", path: "/page3", icon: <Info/>},
+        { label: "Page 3", path: "/page3", icon: <Info /> },
     ];
 
     return (
@@ -54,7 +48,7 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
                         </Typography>
 
                         {/* Desktop Navigation Links */}
-                        <Box sx={{ display: { xs: "none", md: "block" } }}>
+                        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
                             {navItems.map((item) => (
                                 <motion.div key={item.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                                     <Button component={Link} to={item.path} sx={{ color: "inherit", mx: 1 }}>

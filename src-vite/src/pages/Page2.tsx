@@ -4,7 +4,7 @@ import * as React from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
-import { useRef, useEffect, useState,JSX } from "react";
+import { useRef, useEffect, useState, JSX } from "react";
 
 
 
@@ -79,14 +79,14 @@ function createShader(gl: WebGLRenderingContext, type: GLenum, source: string): 
         gl.deleteShader(shader);
         return null;
     }
-    
+
     return shader;
 }
 
-function createShaderProgram(gl: WebGLRenderingContext, vertShader: WebGLShader, fragShader: WebGLShader): WebGLProgram | null{
+function createShaderProgram(gl: WebGLRenderingContext, vertShader: WebGLShader, fragShader: WebGLShader): WebGLProgram | null {
     const shaderProgram = gl.createProgram();
     if (!shaderProgram) return null;
-    
+
     gl.attachShader(shaderProgram, vertShader);
     gl.attachShader(shaderProgram, fragShader);
     gl.linkProgram(shaderProgram);
@@ -96,15 +96,15 @@ function createShaderProgram(gl: WebGLRenderingContext, vertShader: WebGLShader,
         gl.deleteProgram(shaderProgram);
         return null;
     }
-    
+
     return shaderProgram;
 }
 
 function circleVertices(r: number, points: number): Float32Array {
     const v = [];
-    for (let th = 0; th < 2*Math.PI; th += 2*Math.PI / points) {
-        const x = r*Math.cos(th);
-        const y = r*Math.sin(th);
+    for (let th = 0; th < 2 * Math.PI; th += 2 * Math.PI / points) {
+        const x = r * Math.cos(th);
+        const y = r * Math.sin(th);
         v.push(x, y);
     }
     return new Float32Array(v);
@@ -126,12 +126,12 @@ function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius
 
     const outlineBufferRef = useRef<WebGLBuffer | null>(null);
     const outlinePositionLocationRef = useRef<GLint | null>(null);
- 
+
     const joystickBufferRef = useRef<WebGLBuffer | null>(null);
     const joystickPositionLocationRef = useRef<GLint | null>(null);
 
     const translationLocationRef = useRef<WebGLUniformLocation | null>(null);
-    
+
     const initWebGL = () => {
         if (glRef.current) return;
 
@@ -207,11 +207,11 @@ function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius
 
     useEffect(() => {
         initWebGL();
-        
+
         const gl = glRef.current;
         if (!gl) return;
         gl.clear(gl.COLOR_BUFFER_BIT);
-        
+
         gl.useProgram(shaderProgramRef.current);
         updateOutlineBuffer(gl);
         renderOutline(gl);
@@ -300,8 +300,8 @@ export default function Page2() {
                         const angle = polarTranslation[1];
 
                         setTranslation([
-                            newRadius*Math.cos(angle),
-                            newRadius*Math.sin(angle)
+                            newRadius * Math.cos(angle),
+                            newRadius * Math.sin(angle)
                         ]);
                         setPolarTranslation([newRadius, angle]);
                     }}
@@ -320,14 +320,15 @@ export default function Page2() {
                         const newAngle = parseFloat(e.target.value);
 
                         setTranslation([
-                            radius*Math.cos(newAngle),
-                            radius*Math.sin(newAngle)
+                            radius * Math.cos(newAngle),
+                            radius * Math.sin(newAngle)
                         ]);
                         setPolarTranslation([radius, newAngle]);
                     }}
                 />
             </div>
 
-    );
-    </div>
-)};
+            );
+        </div>
+    )
+};

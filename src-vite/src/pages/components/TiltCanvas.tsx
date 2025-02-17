@@ -9,7 +9,6 @@ export type TiltCanvasParams = {
 
 export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
   const canvasRef = useRef<HTMLDivElement | null>(null);
-  const cubeRef = useRef<THREE.Mesh | null>(null);
 
   useEffect(() => {
     if (!canvasRef.current) {
@@ -47,11 +46,14 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
 
     const scene = new THREE.Scene();
     scene.add(cube);
-    cubeRef.current = cube;
 
     // Update cube rotation whenever pitch, yaw, or roll changes
 
+    console.log("cube being updated");
+
     function animate() {
+      console.warn(pitch, yaw, roll)
+      cube.rotation.set(pitch, yaw, roll);
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
@@ -63,12 +65,6 @@ export default function TiltCanvas({ pitch, yaw, roll }: TiltCanvasParams) {
       }
       renderer.setAnimationLoop(null);
     };
-  }, []);
-
-  useEffect(() => {
-    if (cubeRef.current) {
-      cubeRef.current.rotation.set(pitch, yaw, roll);
-    }
   }, [pitch, yaw, roll]);
 
   return <div ref={canvasRef} style={{ width: "100vw", height: "100vh" }} />;

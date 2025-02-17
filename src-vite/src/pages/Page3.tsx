@@ -24,10 +24,10 @@ type Data = {
     "button_circle_pressed": boolean;
     "button_cross_pressed": boolean;
     "button_square_pressed": boolean;
-    "joystick_left_x": boolean;
-    "joystick_left_y": boolean;
-    "joystick_right_x": boolean;
-    "joystick_right_y": boolean;
+    "joystick_left_x": number;
+    "joystick_left_y": number;
+    "joystick_right_x": number;
+    "joystick_right_y": number;
     "trigger_L1_pressed": boolean;
     "trigger_L2_pressed": boolean;
     "trigger_R1_pressed": boolean;
@@ -56,6 +56,11 @@ const MotionOverlay = ({ active }: { active: boolean }) => (
 );
 
 export default function GameController() {
+    const [joystickLeftX, setJoystickLeftX] = useState<number>(0);
+    const [joystickLeftY, setJoystickLeftY] = useState<number>(0);
+    const [joystickRightX, setJoystickRightX] = useState<number>(0);
+    const [joystickRightY, setJoystickRightY] = useState<number>(0);
+
     const [pressed, setPressed] = useState({
         L2: false, L1: false, R2: false, R1: false,
         U: false, L: false, R: false, D: false,
@@ -67,6 +72,11 @@ export default function GameController() {
 
         socket.onmessage = (event) => {
             const data: Data = JSON.parse(event.data);
+
+            setJoystickLeftX(data.joystick_left_x / 128);
+            setJoystickLeftY(data.joystick_left_y / 128);
+            setJoystickRightX(data.joystick_right_x / 128);
+            setJoystickRightY(data.joystick_right_y / 128);
             
             // console.log(data);
             setPressed((prev) => ({ ...prev, "triangle": data.button_triangle_pressed  }));
@@ -144,11 +154,11 @@ export default function GameController() {
 
                 <Grid item>
                     <CircleCanvas
-                        canvasWidth={100}
-                        canvasHeight={100}
-                        outlineRadius={0.9}
+                        canvasWidth={150}
+                        canvasHeight={150}
+                        outlineRadius={0.7}
                         joystickRadius={0.2}
-                        translation={[0.0, 0.0]}
+                        translation={[joystickLeftX, joystickLeftY]}
                         points={50}
                         lineWidth={4}
                         />
@@ -156,11 +166,11 @@ export default function GameController() {
 
                 <Grid item>
                     <CircleCanvas
-                        canvasWidth={100}
-                        canvasHeight={100}
-                        outlineRadius={0.9}
+                        canvasWidth={150}
+                        canvasHeight={150}
+                        outlineRadius={0.7}
                         joystickRadius={0.2}
-                        translation={[0.0, 0.0]}
+                        translation={[joystickRightX, joystickRightY]}
                         points={50}
                         lineWidth={4}
                         />

@@ -1,8 +1,19 @@
 from pydualsense import pydualsense
 
 
-class ControllerState:
+class SingletonMeta(type):
 
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+
+        return cls._instances[cls]
+
+    _instances = {}
+
+
+class ControllerState(metaclass=SingletonMeta):
     def __init__(self):
         self.button_triangle_pressed = False
         self.button_circle_pressed = False
@@ -24,6 +35,9 @@ class ControllerState:
         self.joystick_right_x = 0
         self.joystick_right_y = 0
 
+        self.pitch = 0
+        self.yaw = 0
+        self.roll = 0
 
 class Controller(object):
     def __init__(self):
@@ -36,14 +50,6 @@ class Controller(object):
         print("Establishing connection to dualsense controller...")
         self.ds_api.init()
 
-    # def update(self):
-    #     """
-    #     TODO: Update step in main application loop
-    #     """
-    #     pass
-    #     if self.ds_api.state.cross: # does this accurately tell if the button is pressed?
-    #         self.state.cross_state_pressed = True
-
     def serialize(self):
         """
         TODO: serialize ps controller state
@@ -51,8 +57,9 @@ class Controller(object):
 
         ret = {}
         for attr, value in self.state.__dict__.items():
-            # print(attr, value)
             ret[attr] = value
+        ret["battery_level"] = self.ds_api.battery.Level
+        ret["bettery_state"] = self.ds_api.battery.State
         print(ret)
         return ret
 
@@ -64,7 +71,7 @@ class Controller(object):
         print("Terminating connection to the ps5 controller")
         self.ds_api.close()
 
-    # ================= Callback function spam down here ======================
+### CALLBACK FUNCTIONS ###################################################################
 
     def triangle_event(self, state):
         self.state.button_triangle_pressed = state
@@ -103,20 +110,29 @@ class Controller(object):
         self.state.right_dpad_pressed = state
 
     def left_joystick_event(self, stateX, stateY):
-        # print(stateX, stateY)
         self.state.joystick_left_x = stateX
         self.state.joystick_left_y = stateY
 
     def right_joystick_event(self, stateX, stateY):
-        # print(stateX, stateY)
         self.state.joystick_right_x = stateX
         self.state.joystick_right_y = stateY
 
+    def rot_event(self, pitch, yaw, roll):
+        self.state.pitch = pitch
+        self.state.yaw = yaw
+        self.state.roll = roll
+
     def registerCallbacks(self):
-        self.ds_api.cross_pressed += self.cross_event  # function pointer
+        """
+        Register each callback defined from above. Note that '+=' is a weird pydualsense
+        operator overload, which acts as a pseudo-decorator.
+        """
+
+        self.ds_api.cross_pressed += self.cross_event
         self.ds_api.triangle_pressed += (
             self.triangle_event
-        )  # The += is operator overloading btw lol
+        )
+        
         self.ds_api.circle_pressed += self.circle_event
         self.ds_api.square_pressed += self.square_event
 
@@ -132,6 +148,8 @@ class Controller(object):
 
         self.ds_api.left_joystick_changed += self.left_joystick_event
         self.ds_api.right_joystick_changed += self.right_joystick_event
+
+        self.ds_api.gyro_changed += self.rot_event
 
         # Et cetera ........
         # do the rest here

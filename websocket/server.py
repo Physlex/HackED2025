@@ -9,13 +9,15 @@ from core.controller.controller import Controller
 HOST_NAME = "localhost"
 PORT = 8765
 
-controller = Controller()  # singleton(?)
+controller = Controller()
 
 
 async def on_socket_connect(websocket):
-    # controller = Controller()
-    controller.connect()  # We could also connect this before this function idk
+    controller.connect()
+    print("Registering controller callbacks")
     controller.registerCallbacks()
+
+    print("Beginning byte transmission")
 
     counter = 0
     while not controller.ds_api.state.ps:
@@ -41,24 +43,20 @@ async def on_socket_connect(websocket):
         #     "left_dpad": random.random() > 0.5,
         #     "right_dpad": random.random() > 0.5,
         # }
+
         data = controller.serialize()
         data["timestamp"] = counter
 
         counter += 1
 
         await websocket.send(json.dumps(data))
-        await asyncio.sleep(0.01)
+        await asyncio.sleep(0.05)
 
     controller.close()
 
 
 async def main():
     print(f"Connecting to websocket client hosted on {HOST_NAME} of {PORT}")
-
-    # controller = Controller()
-
-    # register callbacks
-    # controller.registerCallbacks() # register callbacks BEFORE infinite loop actually maybe not
 
     server = await ws.serve(on_socket_connect, HOST_NAME, PORT)
     await server.wait_closed()

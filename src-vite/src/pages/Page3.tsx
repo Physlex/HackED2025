@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import { motion } from "framer-motion";
+//import { s } from "framer-motion/client";
 
 // Base styles
 const buttonStyle = {
@@ -17,7 +18,7 @@ const buttonStyle = {
     overflow: "hidden",
 };
 
-const joystickStyle = {
+/* const joystickStyle = {
     width: 80,
     height: 80,
     borderRadius: "50%",
@@ -26,7 +27,7 @@ const joystickStyle = {
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
-};
+};*/
 
 // Button overlay animation
 const MotionOverlay = ({ active }: { active: boolean }) => (
@@ -49,12 +50,34 @@ export default function GameController() {
     const [pressed, setPressed] = useState({
         L2: false, L1: false, R2: false, R1: false,
         U: false, L: false, R: false, D: false,
-        "△": false, "▢": false, "O": false, "X": false,
+        triangle: false, "square": false, "O": false, "X": false,
     });
 
     const handlePress = (btn: keyof typeof pressed) => {
         setPressed((prev) => ({ ...prev, [btn]: !prev[btn] }));
     };
+
+    useEffect(() => {
+        const socket = new WebSocket("ws://localhost:8765");
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            
+            setPressed((prev) => ({ ...prev, "triangle": data.button_triangle  }));
+            setPressed((prev) => ({ ...prev, "square": data.button_square  }));
+            setPressed((prev) => ({ ...prev, "O": data.button_circle  }));
+            setPressed((prev) => ({ ...prev, "X": data.button_X  }));
+            setPressed((prev) => ({ ...prev, "L2": data.trigger_L2  }));
+            setPressed((prev) => ({ ...prev, "L1": data.trigger_L1  }));
+            setPressed((prev) => ({ ...prev, "R2": data.trigger_R2  }));
+            setPressed((prev) => ({ ...prev, "R1": data.trigger_R1  }));
+            setPressed((prev) => ({ ...prev, "U": data.up_dpad  }));
+            setPressed((prev) => ({ ...prev, "L": data.left_dpad  }));
+            setPressed((prev) => ({ ...prev, "R": data.right_dpad  }));   
+            setPressed((prev) => ({ ...prev, "D": data.down_dpad  }));
+
+        };
+    }, []);
 
     return (
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
@@ -103,6 +126,7 @@ export default function GameController() {
                 </Grid>
 
                 {/* Left Joystick */}
+                {/*
                 <Grid item>
                     <motion.div
                         drag
@@ -111,12 +135,15 @@ export default function GameController() {
                         style={joystickStyle as React.CSSProperties}
                     >
                         <Box sx={{ width: 50, height: 50, borderRadius: "50%", backgroundColor: "#4F46E5" }}>
-                            JL
+                            L
                         </Box>
                     </motion.div>
                 </Grid>
+                 */}
+                
+                {/* Right Joystick 
 
-                {/* Right Joystick */}
+
                 <Grid item>
                     <motion.div
                         drag
@@ -125,23 +152,24 @@ export default function GameController() {
                         style={joystickStyle as React.CSSProperties}
                     >
                         <Box sx={{ width: 50, height: 50, borderRadius: "50%", backgroundColor: "#4F46E5" }}>
-                            JR
+                            R
                         </Box>
                     </motion.div>
                 </Grid>
 
+                            */}
                 {/* Right Side - Action Buttons */}
                 <Grid item>
                     <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={1} width="auto">
                         <Box />
-                        <Box sx={buttonStyle} onClick={() => handlePress("△")}>
+                        <Box sx={buttonStyle} onClick={() => handlePress("triangle")}>
                             △
-                            <MotionOverlay active={pressed["△"]} />
+                            <MotionOverlay active={pressed["triangle"]} />
                         </Box>
                         <Box />
-                        <Box sx={buttonStyle} onClick={() => handlePress("▢")}>
+                        <Box sx={buttonStyle} onClick={() => handlePress("square")}>
                             ▢
-                            <MotionOverlay active={pressed["▢"]} />
+                            <MotionOverlay active={pressed["O"]} />
                         </Box>
                         <Box />
                         <Box sx={buttonStyle} onClick={() => handlePress("O")}>

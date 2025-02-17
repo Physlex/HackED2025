@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { 
-    AppBar, Toolbar, IconButton, Typography, Box, 
-    Button, Drawer, List, ListItem, ListItemButton, ListItemText 
+import {
+    AppBar, Toolbar, IconButton, Typography, Box,
+    Button, Drawer, List, ListItem, ListItemButton, ListItemText
 } from "@mui/material";
-import { Menu as MenuIcon, Brightness4, Brightness7, Home, BarChart, Info } from "@mui/icons-material";
+import { Menu as MenuIcon, Brightness4, Brightness7, Home, BarChart, SportsEsports, Engineering } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { motion } from 'framer-motion';
@@ -23,9 +23,9 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
     // Define navigation links
     const navItems = [
         { label: "Home", path: "/", icon: <Home /> },
-        { label: "Page 1", path: "/Page1", icon: <BarChart /> },
-        { label: "Page 2", path: "/page2", icon: <Info /> },
-        { label: "Page 3", path: "/page3", icon: <Info /> },
+        { label: "Real Time Time-Series Random Number Graph", path: "/Page1", icon: <BarChart /> },
+        { label: "Shape Render 🔥", path: "/page2", icon: <Engineering /> },
+        { label: "Controller Map", path: "/page3", icon: <SportsEsports /> },
     ];
 
     return (
@@ -36,13 +36,13 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <AppBar position="sticky" sx={{ backgroundColor: theme.palette.background.paper, color: theme.palette.text.primary }}>
+                <AppBar position="relative" sx={{ backgroundColor: theme.palette.background.paper, color: theme.palette.text.primary }}>
                     <Toolbar sx={{ justifyContent: "space-between" }}>
                         {/* Logo / Title */}
                         <Typography variant="h6" sx={{ flexGrow: 1 }}>
                             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
                                 <Button component={Link} to="/" sx={{ color: "inherit", fontWeight: "bold", fontSize: "1.2rem" }}>
-                                    My Dashboard
+                                    Integrated Controller Diagonstics Dashboard
                                 </Button>
                             </motion.div>
                         </Typography>

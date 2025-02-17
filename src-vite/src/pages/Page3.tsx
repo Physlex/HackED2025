@@ -85,6 +85,9 @@ export default function GameController() {
     }, []);
 
     return (
+        <div  style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "500px" }}>
+        
+            
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
             {/* Trigger Buttons */}
             <Box display="flex" justifyContent="center" width="80%">
@@ -189,5 +192,7 @@ export default function GameController() {
                 </Grid>
             </Grid>
         </Box>
+        </div>
     );
+    
 }

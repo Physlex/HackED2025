@@ -39,8 +39,8 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
-        self.l3_pressed = False
-        self.r3_pressed = False
+        self.button_L3_pressed = False
+        self.button_R3_pressed = False
 
 class Controller(object):
     def __init__(self):
@@ -126,10 +126,10 @@ class Controller(object):
         self.state.roll = roll
 
     def r3_click_event(self, state):
-        self.state.r3_pressed = state
+        self.state.button_R3_pressed = state
 
     def l3_click_event(self, state):
-        self.state.l3_pressed = state
+        self.state.button_L3_pressed = state
 
     def registerCallbacks(self):
         """

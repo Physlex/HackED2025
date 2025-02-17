@@ -6,9 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { Button } from "@mui/material";
 import { useRef, useEffect, useState,JSX } from "react";
 
-
-
-
 export function BasicMenu() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -47,9 +44,6 @@ export function BasicMenu() {
     );
 }
 
-
-
-
 const vertexSource = `
     attribute vec4 a_position;
     uniform vec2 u_translation;
@@ -63,7 +57,7 @@ const vertexSource = `
 const fragmentSource = `
     precision mediump float;
     void main() {
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        gl_FragColor = vec4(0.31, 0.27, 0.9, 1.0);
     }
 `;
 
@@ -119,7 +113,7 @@ type CircleCanvasParams = {
     lineWidth: number;
     translation: [number, number]
 };
-function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius, points, lineWidth, translation }: CircleCanvasParams): JSX.Element {
+export function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius, points, lineWidth, translation }: CircleCanvasParams): JSX.Element {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const glRef = useRef<WebGLRenderingContext | null>(null);
     const shaderProgramRef = useRef<WebGLProgram | null>(null);
@@ -137,7 +131,7 @@ function CircleCanvas({ canvasWidth, canvasHeight, outlineRadius, joystickRadius
 
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const gl = canvas.getContext("webgl");
+        const gl = canvas.getContext("webgl", { antialias: true });
         if (!gl) return;
         glRef.current = gl;
 

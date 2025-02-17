@@ -28,7 +28,6 @@ async def send_random_data(websocket):
             "down_dpad": random.random() > 0.5,
             "left_dpad": random.random() > 0.5,
             "right_dpad": random.random() > 0.5,
-            
         }
 
         counter += 1

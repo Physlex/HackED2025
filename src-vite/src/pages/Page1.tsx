@@ -302,6 +302,7 @@ export default function Page1() {
         ],
       };
     });
+  }, [timestamp]);
 
     // Connect to websocket
     useEffect(() => {
@@ -434,3 +435,4 @@ export default function Page1() {
             <Line data={chartData} options={options} />
         </div>
     );
+}

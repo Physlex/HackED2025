@@ -126,6 +126,7 @@ type CircleCanvasParams = {
   points: number;
   lineWidth: number;
   translation: [number, number];
+  pressed: boolean;
 };
 export function CircleCanvas({
   canvasWidth,
@@ -135,6 +136,7 @@ export function CircleCanvas({
   points,
   lineWidth,
   translation,
+  pressed
 }: CircleCanvasParams): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
@@ -231,7 +233,13 @@ export function CircleCanvas({
       translation[0] * outlineRadius,
       translation[1] * outlineRadius,
     );
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, points);
+
+    if (pressed) {
+      gl.drawArrays(gl.TRIANGLE_FAN, 0, points);
+    } else {
+      gl.lineWidth(lineWidth);
+      gl.drawArrays(gl.LINE_STRIP, 0, points);
+    }
   };
 
   useEffect(() => {
@@ -272,6 +280,7 @@ export default function Page2() {
         points={points}
         lineWidth={lineWidth}
         translation={translation}
+        pressed={true}
       />
       <div>
         <label>Outline Radius: {outlineRadius.toFixed(2)}</label>

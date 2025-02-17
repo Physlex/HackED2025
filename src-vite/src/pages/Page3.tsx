@@ -47,6 +47,8 @@ type ControllerState = {
   right_dpad_pressed: boolean;
   battery_level: number;
   battery_state: string;
+  button_L3_pressed: boolean;
+  button_R3_pressed: boolean;
 };
 
 // Button overlay animation
@@ -80,6 +82,8 @@ export default function GameController() {
     L1: false,
     R2: false,
     R1: false,
+    L3: false,
+    R3: false,
 
     U: false,
     L: false,
@@ -112,6 +116,7 @@ export default function GameController() {
       setJoystickLeftY(-data.joystick_left_y / 128);
       setJoystickRightX(data.joystick_right_x / 128);
       setJoystickRightY(-data.joystick_right_y / 128);
+      
 
       // Battery
       setBatteryPercentage(data.battery_level);
@@ -127,6 +132,8 @@ export default function GameController() {
         L1: data.trigger_L1_pressed,
         R2: data.trigger_R2_pressed,
         R1: data.trigger_R1_pressed,
+        L3: data.button_L3_pressed,
+        R3: data.button_R3_pressed,
 
         U: data.up_dpad_pressed,
         L: data.left_dpad_pressed,
@@ -230,6 +237,7 @@ export default function GameController() {
                 translation={[joystickLeftX, joystickLeftY]}
                 points={50}
                 lineWidth={4}
+                pressed={pressed.L3}
               />
             </Grid>
 
@@ -242,6 +250,7 @@ export default function GameController() {
                 translation={[joystickRightX, joystickRightY]}
                 points={50}
                 lineWidth={4}
+                pressed={pressed.R3}
               />
             </Grid>
 

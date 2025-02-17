@@ -22,7 +22,6 @@ import {
   Home,
   BarChart,
   SportsEsports,
-  Engineering,
 } from "@mui/icons-material";
 
 import { Link } from "react-router-dom";

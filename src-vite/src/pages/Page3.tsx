@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Box, Grid } from "@mui/material"; // TODO: Transition to Grid2?
 import { motion } from "framer-motion";
 import { CircleCanvas } from "./Page2";
-import { TiltCanvas } from "./components";
+import BatteryGauge from "react-battery-gauge";
 
 // Base styles
 const buttonStyle = {
@@ -45,6 +45,8 @@ type ControllerState = {
   down_dpad_pressed: boolean;
   left_dpad_pressed: boolean;
   right_dpad_pressed: boolean;
+  battery_level: number;
+  battery_state: string;
 };
 
 // Button overlay animation
@@ -65,6 +67,9 @@ const MotionOverlay = ({ active }: { active: boolean }) => (
 );
 
 export default function GameController() {
+  const [batteryPercentage, setBatteryPercentage] = useState<number>(100);
+  // const [batteryState, setBatteryState] = useState<string>("");
+
   const [joystickLeftX, setJoystickLeftX] = useState<number>(0);
   const [joystickLeftY, setJoystickLeftY] = useState<number>(0);
   const [joystickRightX, setJoystickRightX] = useState<number>(0);
@@ -102,10 +107,14 @@ export default function GameController() {
     socket.onmessage = (event) => {
       const data: ControllerState = JSON.parse(event.data);
 
+      // Joystick
       setJoystickLeftX(data.joystick_left_x / 128);
       setJoystickLeftY(-data.joystick_left_y / 128);
       setJoystickRightX(data.joystick_right_x / 128);
       setJoystickRightY(-data.joystick_right_y / 128);
+
+      // Battery
+      setBatteryPercentage(data.battery_level);
 
       // console.log(data);
 
@@ -146,7 +155,7 @@ export default function GameController() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "90vh",
+          height: "70vh",
         }}
       >
         <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
@@ -271,9 +280,10 @@ export default function GameController() {
           </Grid>
         </Box>
       </div>
+      <BatteryGauge value={batteryPercentage} size={200} padding={10} />
 
       {/* This renders the tilt information */}
-      <Box
+      {/* <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <TiltCanvas
@@ -281,7 +291,7 @@ export default function GameController() {
           yaw={rotation.yaw}
           roll={rotation.roll}
         />
-      </Box>
+      </Box> */}
     </>
   );
 }

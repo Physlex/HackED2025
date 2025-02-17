@@ -13,8 +13,6 @@ import {
   ListItemText,
 } from "@mui/material";
 
-
-
 import {
   Menu as MenuIcon,
   Brightness4,
@@ -46,15 +44,17 @@ export default function Navbar({
     setMobileOpen(!mobileOpen);
   };
 
-
-    // Define navigation links
-    const navItems = [
-        { label: "Home", path: "/", icon: <Home /> },
-        { label: "Real Time Time-Series Button Impulse Map", path: "/Page1", icon: <BarChart /> },
-        //{ label: "Shape Render 🔥", path: "/page2", icon: <Engineering /> },
-        { label: "Controller Map", path: "/page3", icon: <SportsEsports /> },
-    ];
-
+  // Define navigation links
+  const navItems = [
+    { label: "Home", path: "/", icon: <Home /> },
+    {
+      label: "Real Time Time-Series Button Impulse Map",
+      path: "/Page1",
+      icon: <BarChart />,
+    },
+    //{ label: "Shape Render 🔥", path: "/page2", icon: <Engineering /> },
+    { label: "Controller Map", path: "/page3", icon: <SportsEsports /> },
+  ];
 
   return (
     <>

@@ -18,7 +18,8 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
             >
-                Welcome to Our Awesome Website & Cool Data Tracker
+                CD-Project-Blue: pointers-in-python
+                
             </motion.h1>
 
 

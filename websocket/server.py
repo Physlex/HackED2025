@@ -9,12 +9,12 @@ from core.controller.controller import Controller
 HOST_NAME = "localhost"
 PORT = 8765
 
-controller = Controller() # singleton(?)
+controller = Controller()  # singleton(?)
 
 
 async def on_socket_connect(websocket):
     # controller = Controller()
-    controller.connect() # We could also connect this before this function idk
+    controller.connect()  # We could also connect this before this function idk
     controller.registerCallbacks()
 
     counter = 0
@@ -60,7 +60,6 @@ async def main():
     # register callbacks
     # controller.registerCallbacks() # register callbacks BEFORE infinite loop actually maybe not
 
-
     server = await ws.serve(on_socket_connect, HOST_NAME, PORT)
     await server.wait_closed()
 
@@ -69,5 +68,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-

@@ -302,7 +302,7 @@ export default function Page1() {
         ],
       };
     });
-  }, []);
+  }, [timestamp]);
 
   // Connect to websocket
   useEffect(() => {
@@ -435,6 +435,7 @@ export default function Page1() {
       };
     });
   }, [timestamp]);
+
 
   return (
     <div>

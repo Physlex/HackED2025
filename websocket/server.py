@@ -1,43 +1,78 @@
 import asyncio
-import websockets
 import json
 import random
-import time
+
+import websockets as ws
+
+from core.controller.controller import Controller
+# from core.controller.callbackRegistrator import registerCallbacks
+
+HOST_NAME = "localhost"
+PORT = 8765
+
+controller = Controller() # singleton(?)
 
 
-async def send_random_data(websocket):
+# def cross_pressed(state):
+#     print(state)
+
+
+async def on_socket_connect(websocket):
+    # controller = Controller()
+    controller.connect() # We could also connect this before this function idk
+    controller.registerCallbacks()
+
     counter = 0
+    while not controller.ds_api.state.ps:
+        # controller.ds_api.cross_pressed += cross_pressed
+        # controller.update() # Updates the button states (just like Tartan)
 
-    while True:
-
-        data = {
-            "timestamp": counter,
-            "button_triangle": random.random() > 0.50,
-            "button_circle": random.random() > 0.5,
-            "button_cross": random.random() > 0.5,
-            "button_square": random.random() > 0.5,
-            "joystick_left_x": random.random() > 0.5,
-            "joystick_left_y": random.random() > 0.5,
-            "joystick_right_x": random.random() > 0.5,
-            "joystick_right_y": random.random() > 0.5,
-            "trigger_L1": random.random() > 0.5,
-            "trigger_L2": random.random() > 0.5,
-            "trigger_R1": random.random() > 0.5,
-            "trigger_R2": random.random() > 0.5,
-            "up_dpad": random.random() > 0.5,
-            "down_dpad": random.random() > 0.5,
-            "left_dpad": random.random() > 0.5,
-            "right_dpad": random.random() > 0.5,
-        }
+        # data = {
+        #     "timestamp": counter,
+        #     "button_triangle": random.random() > 0.50,
+        #     "button_circle": random.random() > 0.5,
+        #     "button_cross": random.random() > 0.5,
+        #     "button_square": random.random() > 0.5,
+        #     "joystick_left_x": random.random() > 0.5,
+        #     "joystick_left_y": random.random() > 0.5,
+        #     "joystick_right_x": random.random() > 0.5,
+        #     "joystick_right_y": random.random() > 0.5,
+        #     "trigger_L1": random.random() > 0.5,
+        #     "trigger_L2": random.random() > 0.5,
+        #     "trigger_R1": random.random() > 0.5,
+        #     "trigger_R2": random.random() > 0.5,
+        #     "up_dpad": random.random() > 0.5,
+        #     "down_dpad": random.random() > 0.5,
+        #     "left_dpad": random.random() > 0.5,
+        #     "right_dpad": random.random() > 0.5,
+        # }
+        data = controller.serialize()
+        data["timestamp"] = counter
 
         counter += 1
 
         await websocket.send(json.dumps(data))
-        await asyncio.sleep(0.8)
+        await asyncio.sleep(0.01)
+
+    controller.close()
+
 
 async def main():
-    server = await websockets.serve(send_random_data, "localhost", 8765)
+    print(f"Connecting to websocket client hosted on {HOST_NAME} of {PORT}")
+
+    # controller = Controller()
+
+    # register callbacks
+    # controller.registerCallbacks() # register callbacks BEFORE infinite loop actually maybe not
+
+
+    server = await ws.serve(on_socket_connect, HOST_NAME, PORT)
     await server.wait_closed()
+
+    print(f"Terminating server")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+

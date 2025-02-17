@@ -74,9 +74,9 @@ export default function GameController() {
             const data: Data = JSON.parse(event.data);
 
             setJoystickLeftX(data.joystick_left_x / 128);
-            setJoystickLeftY(data.joystick_left_y / 128);
+            setJoystickLeftY(-data.joystick_left_y / 128);
             setJoystickRightX(data.joystick_right_x / 128);
-            setJoystickRightY(data.joystick_right_y / 128);
+            setJoystickRightY(-data.joystick_right_y / 128);
             
             // console.log(data);
             setPressed((prev) => ({ ...prev, "triangle": data.button_triangle_pressed  }));

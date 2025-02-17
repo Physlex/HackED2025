@@ -78,7 +78,7 @@ export default function GameController() {
             setJoystickRightX(data.joystick_right_x / 128);
             setJoystickRightY(data.joystick_right_y / 128);
             
-            // console.log(data);
+            console.log(data);
             setPressed((prev) => ({ ...prev, "triangle": data.button_triangle_pressed  }));
             setPressed((prev) => ({ ...prev, "square": data.button_square_pressed  }));
             setPressed((prev) => ({ ...prev, "O": data.button_circle_pressed  }));
@@ -205,5 +205,4 @@ export default function GameController() {
         </Box>
         </div>
     );
-    
 }

@@ -39,8 +39,8 @@ class ControllerState(metaclass=SingletonMeta):
         self.yaw = 0
         self.roll = 0
 
-        self.l3_pressed = True
-        self.r3_pressed = True
+        self.l3_pressed = False
+        self.r3_pressed = False
 
 class Controller(object):
     def __init__(self):

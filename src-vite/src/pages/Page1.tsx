@@ -102,7 +102,7 @@ export default function Page1() {
             },
         ]
     });
-    
+
     // Update data on message
     useEffect(() => {
         const socket = new WebSocket("ws://localhost:8765");
@@ -128,7 +128,7 @@ export default function Page1() {
                 newLabels.shift();
                 newData1.shift();
                 newData2.shift();
-            } 
+            }
 
 
             return {
@@ -151,7 +151,7 @@ export default function Page1() {
     return (
         <div>
 
-            <BasicMenu />   
+            <BasicMenu />
             <ButtonUsage />
 
 

@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { 
-    AppBar, Toolbar, IconButton, Typography, Box, 
-    Button, Drawer, List, ListItem, ListItemButton, ListItemText 
+import {
+    AppBar, Toolbar, IconButton, Typography, Box,
+    Button, Drawer, List, ListItem, ListItemButton, ListItemText
 } from "@mui/material";
 import { Menu as MenuIcon, Brightness4, Brightness7, Home, BarChart, Info } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 
 /** 
@@ -18,7 +18,7 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
     const [mobileOpen, setMobileOpen] = useState(false);
 
     // Handle menu clicks
- 
+
 
     // Toggle mobile drawer
     const handleDrawerToggle = () => {
@@ -29,7 +29,8 @@ export default function Navbar({ toggleTheme, darkMode }: { toggleTheme: () => v
     const navItems = [
         { label: "Home", path: "/", icon: <Home /> },
         { label: "Page 1", path: "/Page1", icon: <BarChart /> },
-        { label: "Page 2", path: "/page2", icon: <Info /> },
+        { label: "Page 2", path: "/Page2", icon: <Info /> },
+        { label: "Page 3", path: "/Page3", icon: <Info /> },
     ];
 
     return (

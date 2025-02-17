@@ -5,16 +5,11 @@ import random
 import websockets as ws
 
 from core.controller.controller import Controller
-# from core.controller.callbackRegistrator import registerCallbacks
 
 HOST_NAME = "localhost"
 PORT = 8765
 
 controller = Controller() # singleton(?)
-
-
-# def cross_pressed(state):
-#     print(state)
 
 
 async def on_socket_connect(websocket):

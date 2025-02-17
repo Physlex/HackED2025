@@ -24,10 +24,10 @@ type Data = {
     "button_circle_pressed": boolean;
     "button_cross_pressed": boolean;
     "button_square_pressed": boolean;
-    "joystick_left_x": boolean;
-    "joystick_left_y": boolean;
-    "joystick_right_x": boolean;
-    "joystick_right_y": boolean;
+    "joystick_left_x": number;
+    "joystick_left_y": number;
+    "joystick_right_x": number;
+    "joystick_right_y": number;
     "trigger_L1_pressed": boolean;
     "trigger_L2_pressed": boolean;
     "trigger_R1_pressed": boolean;
@@ -100,7 +100,7 @@ export default function GameController() {
                     justifyContent="space-between"
                     width="100%"
                 >
-                    {["L2", "R2", "L1", "L2"].map((btn) => (
+                    {["L2", "R2", "L1", "R1"].map((btn) => (
                         <Grid item key={btn}>
                             <Box
                                 sx={{ ...buttonStyle, width: 80, height: 40, borderRadius: "8px" }}
@@ -176,7 +176,7 @@ export default function GameController() {
                         <Box />
                         <Box sx={buttonStyle} >
                             ▢
-                            <MotionOverlay active={pressed["O"]} />
+                            <MotionOverlay active={pressed["square"]} />
                         </Box>
                         <Box />
                         <Box sx={buttonStyle} >

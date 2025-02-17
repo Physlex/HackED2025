@@ -1,13 +1,13 @@
 from pydualsense import pydualsense
 
+
 class Controller(object):
-    def __init__(self):        
+    def __init__(self):
         self.ds_api = pydualsense()
         pass
 
     def connect(self):
-        """ Connect to the dualsense ps5 controller
-        """
+        """Connect to the dualsense ps5 controller"""
 
         print("Establishing connection to dualsense controller...")
         self.ds_api.init()

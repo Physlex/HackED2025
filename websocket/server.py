@@ -28,7 +28,6 @@ async def send_random_data(websocket):
             "down_dpad": random.random() > 0.5,
             "left_dpad": random.random() > 0.5,
             "right_dpad": random.random() > 0.5,
-            
         }
 
         counter += 1
@@ -36,9 +35,11 @@ async def send_random_data(websocket):
         await websocket.send(json.dumps(data))
         await asyncio.sleep(0.8)
 
+
 async def main():
     server = await websockets.serve(send_random_data, "localhost", 8765)
     await server.wait_closed()
+
 
 if __name__ == "__main__":
     asyncio.run(main())
